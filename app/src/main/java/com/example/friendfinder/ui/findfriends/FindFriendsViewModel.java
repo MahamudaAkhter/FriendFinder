@@ -1,16 +1,16 @@
-package com.example.friendfinder.ui.dashboard;
+package com.example.friendfinder.ui.findfriends;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class FindFriendsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public FindFriendsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is find friends fragment");
     }
 
     public LiveData<String> getText() {

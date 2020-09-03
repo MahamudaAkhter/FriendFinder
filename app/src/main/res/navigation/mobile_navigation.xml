@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.friendfinder.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_findfriends"
+        android:name="com.example.friendfinder.ui.findfriends.FindFriendsFragment"
+        android:label="@string/title_findfriends"
+        tools:layout="@layout/fragment_findfriends" />
 
     <fragment
         android:id="@+id/navigation_notifications"
