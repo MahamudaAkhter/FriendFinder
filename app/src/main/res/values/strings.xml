@@ -1,7 +1,63 @@
 <resources>
     <string name="app_name">FriendFinder</string>
     <string name="title_home">Home</string>
-    <string name="title_findfriends">Find Friends</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="find_friends">Find Friends</string>
+    <string name="content_description_favorite" />
+    <string name="favorite" />
+    <string name="search" />
+    <string name="content_description_search" />
+    <string name="more" />
+    <string name="content_description_more" />
+    <string name="label">Search</string>
+    <string name="content_description_settings">settings</string>
+    <string name="settings">Settings</string>
+    <string name="title_friends_list">Friends</string>
+    <string name="title_find_friend">Find</string>
+    <string name="title_places">Places</string>
+    <string name="supporting_text">Support Text</string>
+    <string name="secondary_text">Secondary Text</string>
+    <string name="title">Title</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="profile_header">Profile</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="name_title">Username</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="edit">Edit</string>
+    <string name="content_description_edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="content_description_delete">Delete</string>
+    <string name="title_badge">Badges</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_description_profile_icon">Profile Icon</string>
+    <string name="title_account">Account</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="account_delete">Delete Account</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_log_in">Log In</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="log_out">Log Out</string>
+    <string name="action_sign_up">Create User</string>
+    <string name="login_tab">Log in</string>
+    <string name="sign_up_tab">Create User</string>
+    <string name="action_upload_image">Upload Profile Image</string>
 </resources>
