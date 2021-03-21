@@ -2,15 +2,25 @@ package com.example.friendfinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import com.example.friendfinder.R;
+import com.example.friendfinder.models.FireStoreRepo;
+import com.example.friendfinder.models.User;
 import com.example.friendfinder.ui.friend_list.FriendListFragment;
 import com.example.friendfinder.ui.find_friend.FindFriendFragment;
 import com.example.friendfinder.ui.places.PlacesFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.model.Document;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +32,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     ImageButton profile;
     SwitchMaterial liveLocationSwitch;
+    FirebaseUser firebaseUser;
 
     /**
      * The number of pages (wizard steps) to show in this demo.
@@ -70,12 +84,16 @@ public class MainActivity extends AppCompatActivity {
         /**
          * The pager adapter, which provides the pages to the view pager widget.
          */
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null)
-        {
+        if (firebaseUser == null) {
             Intent intent = new Intent(this, LoginSignupActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+        } else {
+            FireStoreRepo.createUser(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+            //FireStoreRepo.GetInstance().setUserID(firebaseUser.getUid());
+            FireStoreRepo.GetInstance().getDocument();
         }
 
 
@@ -99,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NotNull AnimatedBottomBar.Tab tab1) {
             }
+
             @Override
             public void onTabReselected(int i, @NotNull AnimatedBottomBar.Tab tab) {
 

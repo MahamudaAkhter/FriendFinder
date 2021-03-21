@@ -22,6 +22,7 @@ import com.example.friendfinder.FriendActionListDialogFragment;
 import com.example.friendfinder.R;
 import com.example.friendfinder.adapters.SmallRecyclerViewAdapter;
 import com.example.friendfinder.interfaces.FriendSmallListItemClickListener;
+import com.example.friendfinder.models.FireStoreRepo;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -81,6 +82,7 @@ public class FindFriendFragment extends Fragment implements FriendSmallListItemC
                     mLastKnownLocation = location;
                     if (location != null) {
                         // Logic to handle location object
+                        FireStoreRepo.GetInstance().UpdateUserDocument(location);
                     }
                 });
 

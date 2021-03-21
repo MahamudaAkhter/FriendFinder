@@ -3,31 +3,36 @@ package com.example.friendfinder.models;
 import java.util.Dictionary;
 import java.util.List;
 
+import androidx.collection.ArraySet;
+
 public abstract class Person {
     protected int avatar;
-    protected String name, username;
+    protected String email, username, displayName;
     protected Boolean isLive;
     protected List<Badge> badges;
     protected int highestStreak, totalDistanceTravelled;
+    protected String userID;
+    protected int phoneNumber;
 
-//    public Person(String name, String username, Boolean isLive, int highestStreak, int totalDistanceTravelled) {
-//        this.name = name;
-//        this.username = username;
-//        this.isLive = isLive;
-//        this.highestStreak = highestStreak;
-//        this.totalDistanceTravelled = totalDistanceTravelled;
-//    }
-//
-//    public Person(int avatar, String name, String username, Boolean isLive, List<String> friends, int highestStreak, int totalDistanceTravelled, List<Badge> badges) {
-//        this.avatar = avatar;
-//        this.name = name;
-//        this.username = username;
-//        this.isLive = isLive;
-//        this.friends = friends;
-//        this.badges = badges;
-//        this.highestStreak = highestStreak;
-//        this.totalDistanceTravelled = totalDistanceTravelled;
-//    }
+    public Person(String userID, int avatar, String displayName, String email, Boolean isLive, int highestStreak, int totalDistanceTravelled, List<Badge> badges) {
+        this.userID = userID;
+        this.avatar = avatar;
+        this.displayName = displayName;
+        //this.username = username;
+        this.email = email;
+        this.isLive = isLive;
+        this.highestStreak = highestStreak;
+        this.totalDistanceTravelled = totalDistanceTravelled;
+        this.badges = badges;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public int getAvatar() {
         return avatar;
@@ -37,12 +42,28 @@ public abstract class Person {
         this.avatar = avatar;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getUsername() {

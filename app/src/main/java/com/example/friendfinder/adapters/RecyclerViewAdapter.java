@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         List<Friend> friends = user.getFriends();
-        holder.getView().setText(String.valueOf(friends.get(position).getName()));
+        holder.getView().setText(String.valueOf(friends.get(position).getUsername()));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 filterPattern = "" + filterPattern;
                 for (Friend friend : friendListFull) {
-                    if (friend.getName().toLowerCase().contains(filterPattern)) {
+                    if (friend.getUsername().toLowerCase().contains(filterPattern)) {
                         filteredList.add(friend);
                     }
                 }
@@ -81,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             results.values = filteredList;
             return results;
         }
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             friendList.clear();

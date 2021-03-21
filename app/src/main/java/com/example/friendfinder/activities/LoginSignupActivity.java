@@ -78,7 +78,6 @@ public class LoginSignupActivity extends AppCompatActivity {
 
         FragmentStateAdapter pagerAdapter = new DemoCollectionAdapter(this);
         viewPager2.setAdapter(pagerAdapter);
-
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager2,
                 (tab, position) -> {

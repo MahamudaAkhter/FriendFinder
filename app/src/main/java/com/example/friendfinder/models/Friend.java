@@ -1,14 +1,13 @@
 package com.example.friendfinder.models;
 
+import java.util.List;
+
 public class Friend extends Person {
 
     private Boolean isBestFriend;
 
-    public Friend(int avatar, String name, String username, Boolean isLive, Boolean isBestFriend) {
-        this.avatar = avatar;
-        this.name = name;
-        this.username = username;
-        this.isLive = isLive;
+    public Friend(String userID, int avatar, String displayName, String email, Boolean isLive, int highestStreak, int totalDistanceTravelled, List<Badge> badges, Boolean isBestFriend) {
+        super(userID, avatar, displayName, email, isLive, highestStreak, totalDistanceTravelled, badges);
         this.isBestFriend = isBestFriend;
     }
 

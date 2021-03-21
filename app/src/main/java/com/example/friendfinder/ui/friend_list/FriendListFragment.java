@@ -60,7 +60,7 @@ public class FriendListFragment extends Fragment implements FriendListItemClickL
             @Override
             public boolean onQueryTextChange(String newText) {
                 recyclerViewAdapter.getFilter().filter(newText);
-                return false;
+                return true;
             }
         });
 
