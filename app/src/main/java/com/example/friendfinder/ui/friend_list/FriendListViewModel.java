@@ -29,8 +29,6 @@ public class FriendListViewModel extends ViewModel {
 
         List<Badge> badges = new ArrayList<>();
         user = new User("5",0, "Maha", "Maha123", false, 0, 0, badges, friends);
-        getUser().setFriends(friends);
-
     }
 
     public LiveData<String> getText() {
