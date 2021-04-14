@@ -22,13 +22,12 @@ import androidx.annotation.NonNull;
 public class FireStoreRepo {
 
     FirebaseFirestore db;
+
     Map<String, Object> document = new HashMap<>();
-    private String userID, name, documentPath;
 
     private static FireStoreRepo INSTANCE = null;
 
     private static User user;
-    // other instance variables can be here
 
     private FireStoreRepo() {}
 
@@ -62,11 +61,7 @@ public class FireStoreRepo {
 
     public void updateDocument() {
         db = FirebaseFirestore.getInstance();
-        //db = FirebaseFirestore.getInstance().collection().addSnapshotListener();
-        //db.getInstance().getReference.child("users").child(getRef(position).getKey());
 
-        //db.collection("users").document("wgtQz94Bj3BBAzsFTvio").set(document);
-        //db.collection("users").document(document.getId() + " => " + document.getData()).set(document);
         CollectionReference userIdRef = db.collection("users");
 
         userIdRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -88,7 +83,7 @@ public class FireStoreRepo {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d("TAG", document.getId() + " => " + document.getData());
                             //name = document.getString("username");
-                            userID = document.getString("User ID");
+                            //userID = document.getString("User ID");
                         }
                     } else {
                         Log.w("TAG", "Error getting documents.", task.getException());
