@@ -3,16 +3,18 @@ package com.example.friendfinder.models;
 import android.location.Location;
 import android.util.Log;
 
-import com.example.friendfinder.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -26,10 +28,9 @@ public class FireStoreRepo {
     private static FireStoreRepo INSTANCE = null;
 
     private static User user;
-
     // other instance variables can be here
 
-    private FireStoreRepo() {};
+    private FireStoreRepo() {}
 
     public static FireStoreRepo GetInstance() {
         if (INSTANCE == null) {
@@ -44,7 +45,7 @@ public class FireStoreRepo {
     }
 
     public boolean UpdateUserDocument(Location location){
-        document.put("User Id", userID);
+        document.put("User Id", 300 );
         document.put("Avatar", user.getAvatar());
         document.put("Display Name" , user.getDisplayName());
         document.put("Email", user.getEmail());
@@ -59,29 +60,38 @@ public class FireStoreRepo {
         return true;
     }
 
-    //public void
-
     public void updateDocument() {
         db = FirebaseFirestore.getInstance();
-        db.collection("users").document("wgtQz94Bj3BBAzsFTvio").set(document);
+        //db = FirebaseFirestore.getInstance().collection().addSnapshotListener();
+        //db.getInstance().getReference.child("users").child(getRef(position).getKey());
+
+        //db.collection("users").document("wgtQz94Bj3BBAzsFTvio").set(document);
+        //db.collection("users").document(document.getId() + " => " + document.getData()).set(document);
+        CollectionReference userIdRef = db.collection("users");
+
+        userIdRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                User user = documentSnapshot.toObject(User.class);
+                user.setUserID(documentSnapshot.getId() );
+                db.collection("users").document(user.getUserID()).set(document);
+            }
+        });
+
     }
 
     public void getDocument() {
         db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                //name = document.getString("username");
-                                userID = document.getString("User ID");
-                            }
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Log.d("TAG", document.getId() + " => " + document.getData());
+                            //name = document.getString("username");
+                            userID = document.getString("User ID");
                         }
+                    } else {
+                        Log.w("TAG", "Error getting documents.", task.getException());
                     }
                 });
     }

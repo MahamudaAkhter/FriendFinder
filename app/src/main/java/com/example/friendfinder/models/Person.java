@@ -1,5 +1,7 @@
 package com.example.friendfinder.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Dictionary;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public abstract class Person {
         this.badges = badges;
     }
 
+    public Person(){}
+
+    @Exclude
     public String getUserID() {
         return userID;
     }

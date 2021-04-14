@@ -1,16 +1,21 @@
 package com.example.friendfinder.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Person {
 
-    private List<Friend> friends;
-
     //String uid, String displayName, String email, int phoneNumber
+
+    private List<Friend> friends = new ArrayList<>();
 
     public User(String userID, int avatar, String displayName, String email, Boolean isLive, int highestStreak, int totalDistanceTravelled, List<Badge> badges, List<Friend> friends) {
         super(userID, avatar, displayName, email, isLive, highestStreak, totalDistanceTravelled, badges);
         this.friends = friends;
+    }
+
+    public User(){
+        super();
     }
 
     public List<Friend> getFriends() {
