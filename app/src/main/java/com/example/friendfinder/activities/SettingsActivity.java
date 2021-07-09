@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
                 builder.setPositiveButton("Log Out",
                         (dialog, which) -> {
                             FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(getContext(), LoginSignupActivity.class);
+                            Intent intent = new Intent(getContext(), LoginSingupActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         });

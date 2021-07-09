@@ -3,18 +3,12 @@ package com.example.friendfinder.models;
 import android.location.Location;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -39,8 +33,25 @@ public class FireStoreRepo {
     }
 
     public static void createUser(String userID, String displayName, String email) {
-        user = new User(userID, 0, displayName, email,
-                false, 0 , 0, null, null);
+        // TODO if new user does not exist then do update user doc, otherwise create new user, from below
+
+        /*db = FirebaseFirestore.getInstance();
+
+        CollectionReference userIdRef = db.collection("users");
+
+        userIdRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                User user = documentSnapshot.toObject(User.class);
+                user.setUserID(documentSnapshot.getId());
+            }
+        });
+
+        if(userID == user.userID){
+            updateDocument();
+        }else {*/
+            user = new User(userID, 0, displayName, email,
+                    false, 0, 0, null, null);
+        //}
     }
 
     public boolean UpdateUserDocument(Location location){
@@ -48,7 +59,6 @@ public class FireStoreRepo {
         document.put("Avatar", user.getAvatar());
         document.put("Display Name" , user.getDisplayName());
         document.put("Email", user.getEmail());
-        //document.put("Phone Number", user.getPhoneNumber());
         document.put("Is Live", user.getLive());
         document.put("Highest Streak", user.getHighestStreak());
         document.put("Total Distance Travelled" , user.getTotalDistanceTravelled());
