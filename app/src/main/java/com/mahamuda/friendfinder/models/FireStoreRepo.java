@@ -1,4 +1,4 @@
-package com.example.friendfinder.models;
+package com.mahamuda.friendfinder.models;
 
 import android.location.Location;
 import android.util.Log;
@@ -10,8 +10,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
 
 public class FireStoreRepo {
 
@@ -48,15 +46,18 @@ public class FireStoreRepo {
 
         if(userID == user.userID){
             updateDocument();
-        }else {*/
+        }else {
             user = new User(userID, 0, displayName, email,
                     false, 0, 0, null, null);
-        //}
+        }*/
     }
 
-    public boolean UpdateUserDocument(Location location){
-        document.put("User Id", 300 );
-        document.put("Avatar", user.getAvatar());
+    public boolean updateUserDocument(Location location){
+        /*if(user.avatar() = null){
+
+        }*/
+        /*document.put("User Id", 300 );
+        //document.put("Avatar", user.getAvatar());
         document.put("Display Name" , user.getDisplayName());
         document.put("Email", user.getEmail());
         document.put("Is Live", user.getLive());
@@ -64,7 +65,7 @@ public class FireStoreRepo {
         document.put("Total Distance Travelled" , user.getTotalDistanceTravelled());
         document.put ("Badges" , user.getBadges());
         document.put("Friends List" , user.getFriends());
-        document.put("live_location" , new GeoPoint(location.getLatitude(), location.getLongitude()));
+        document.put("live_location" , new GeoPoint(location.getLatitude(), location.getLongitude()));*/
         updateDocument();
         return true;
     }
@@ -85,6 +86,7 @@ public class FireStoreRepo {
     }
 
     public void getDocument() {
+        // read data functions
         db = FirebaseFirestore.getInstance();
         db.collection("users")
                 .get()
