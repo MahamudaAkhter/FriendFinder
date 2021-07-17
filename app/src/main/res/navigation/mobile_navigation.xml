@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_friend_list"
-        android:name="com.example.friendfinder.ui.find_friend.FindFriendFragment"
+        android:name="com.mahamuda.friendfinder.ui.find_friend.FindFriendFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_find_friend" />
 
     <fragment
         android:id="@+id/navigation_find_friend"
-        android:name="com.example.friendfinder.ui.friend_list.FriendListFragment"
+        android:name="com.mahamuda.friendfinder.ui.friend_list.FriendListFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_friend_list" />
 
     <fragment
         android:id="@+id/navigation_places"
-        android:name="com.example.friendfinder.ui.places.PlacesFragment"
+        android:name="com.mahamuda.friendfinder.ui.places.PlacesFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_places" />
 

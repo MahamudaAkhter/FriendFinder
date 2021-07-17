@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="64dp"
     android:paddingTop="32dp"
-    tools:context=".ui.login_sign_up.SignUpFragment">
+    tools:context="com.mahamuda.friendfinder.ui.login_sign_up.SignUpFragment">
 
 
     <com.google.android.material.textfield.TextInputLayout

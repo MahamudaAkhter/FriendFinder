@@ -8,20 +8,49 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:932342681752:android:1853b1431ffd99251b00ed",
+        "mobilesdk_app_id": "1:932342681752:android:9fb9d289296d9eff1b00ed",
         "android_client_info": {
-          "package_name": "com.example.friendfinder"
+          "package_name": "com.mahamuda.friendFinder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "932342681752-1s3h61dehjtr505lhgbe4rkqo21j8vmv.apps.googleusercontent.com",
+          "client_id": "932342681752-j19m67726kucjkl3qvbmss07f3vu3l1p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.friendfinder",
+            "package_name": "com.mahamuda.friendFinder",
             "certificate_hash": "af7ee86da2a6812c66f91ed80b9dc5117f5de082"
           }
         },
+        {
+          "client_id": "932342681752-as4jjdig36oibt6ngt07tcnpja5lmijv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo6V-3HWLiDY9-ZWbz_83sq5TEr7sqhLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932342681752-as4jjdig36oibt6ngt07tcnpja5lmijv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932342681752:android:64053488bb8388961b00ed",
+        "android_client_info": {
+          "package_name": "com.mahamuda.friendfinder"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "932342681752-as4jjdig36oibt6ngt07tcnpja5lmijv.apps.googleusercontent.com",
           "client_type": 3

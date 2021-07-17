@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.find_friend.FindFriendFragment">
+    tools:context="com.mahamuda.friendfinder.ui.find_friend.FindFriendFragment">
 
     <!--        <include layout="@layout/map"/>-->
     <com.google.android.material.card.MaterialCardView
