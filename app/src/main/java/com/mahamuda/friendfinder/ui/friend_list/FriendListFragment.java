@@ -1,6 +1,7 @@
 package com.mahamuda.friendfinder.ui.friend_list;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,10 +41,9 @@ public class FriendListFragment extends Fragment implements FriendListItemClickL
     RecyclerViewAdapter recyclerViewAdapter;
     SearchView searchView;
     Button inviteBtn;
-    Intent intent;
-
-    private static InviteFriends inviteFriends;
     private FirebaseUser firebaseUser;
+    Uri mInvitationUrl;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -75,19 +76,20 @@ public class FriendListFragment extends Fragment implements FriendListItemClickL
             }
         });
 
-        intent = new Intent();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        inviteBtn = root.findViewById(R.id.btnInvite);
-        inviteFriends = new InviteFriends();
+        //intent = new Intent();
         InviteFriendsNew inviteFriendsNew = new InviteFriendsNew();
 
-        inviteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createLink();
-                inviteFriendsNew.dynamicLinksHandler(intent);
-            }
+        inviteBtn = root.findViewById(R.id.btnInvite);
+        //inviteFriendsNew = new InviteFriends();
+
+        inviteBtn.setOnClickListener(view -> {
+            /*Uri uri = createLink(); //create long dynamic link
+            validateInviteLink(createInviteLink()); //shortens long dynamic link
+            InviteFriendsNew inviteFriendsNew = new InviteFriendsNew(getActivity());
+            inviteFriendsNew.dynamicLinksHandler(); //validates dynamic link*/
+            createLink();
+            //sendInvite();
+            inviteFriendsNew.dynamicLinksHandler();
         });
 
         return root;
@@ -114,30 +116,44 @@ public class FriendListFragment extends Fragment implements FriendListItemClickL
     }
 
     private void createLink(){
-        Log.e("InviteFriendsNew", "Create link");
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        userId = firebaseUser.getUid();
+        String link = "https://findfriends.page.link/?invitedby=" + userId;
 
         // Creating dynamic link programmatically
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://findfriends.page.link"))
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(link))
                 .setDomainUriPrefix("https://findfriends.page.link")
                 // Open links with this app on Android
-                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setAndroidParameters
+                        (new DynamicLink.AndroidParameters.Builder("com.mahamuda.friendfinder")
+                        .setMinimumVersion(125).build())
                 // Open links with com.example.ios on iOS
                 //.setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
-                .buildDynamicLink();
+                .buildShortDynamicLink()
+                .addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
+                    @Override
+                    public void onSuccess(ShortDynamicLink shortDynamicLink) {
+                        mInvitationUrl = shortDynamicLink.getShortLink();
+                    }
+                });
+
+        sendInvite();
 
         // My long refer link is https://findfriends.page.link?apn=com.mahamuda.friendfinder&ibi=com.example.ios&link=https%3A%2F%2Ffindfriends.page.link
 
-        Uri dynamicLinkUri = dynamicLink.getUri();
-        Log.e(TAG, "Long Refer " + dynamicLinkUri);
+        //Uri dynamicLinkUri = dynamicLink.getUri();
+        //Log.e(TAG, "Long Refer " + dynamicLinkUri);
 
-        createInviteLink(firebaseUser.getUid(), firebaseUser.getUid());
+        //createInviteLink(firebaseUser.getUid(), firebaseUser.getUid());
+
+
     }
 
-    public void createInviteLink(String userId, String friendsId){
+    /*public String createInviteLink(){
         String shareLinkText = "https://findfriends.page.link/?"+
-                "link=https://findfriends.page.link/invite.php?userid="+
-                userId+"-"+friendsId+
+                "link=https://findfriends.page.link/?invitedby="+
+                userId+
                 "&apn="+"com.mahamuda.friendfinder"+
                 "&st="+"Invite"+
                 "&si="+"https://static.wikia.nocookie.net/despicableme/images/c/ca/Bob-from-the-minions-movie.jpg/revision/latest/top-crop/width/360/height/450?cb=20151224154354";
@@ -146,34 +162,70 @@ public class FriendListFragment extends Fragment implements FriendListItemClickL
         // ios&link=https%3A%2F%2Ffindfriends.page.link
 
         Log.e(TAG, "Share link: " + shareLinkText);
+        return shareLinkText;
 
         // Shorten the link
-        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+
+    }*/
+
+    /*private void validateInviteLink(String shareLinkText) {
+                Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLongLink(Uri.parse(shareLinkText))
                 .buildShortDynamicLink()
-                .addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
-                        if (task.isSuccessful()) {
-                            // Short link created
-                            Uri shortLink = task.getResult().getShortLink();
-                            Uri flowchartLink = task.getResult().getPreviewLink();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Short link created
+                        Uri shortLink = task.getResult().getShortLink();
+                        Uri flowchartLink = task.getResult().getPreviewLink();
 
-                            Log.e("InviteFriendsNew", "Short Link: " + shortLink);
-                            Log.e("InviteFriendsNew", "Debug Link: " + flowchartLink);
+                        Log.e("InviteFriendsNew", "Short Link: " + shortLink);
+                        Log.e("InviteFriendsNew", "Debug Link: " + flowchartLink);
 
-                            intent.setAction(Intent.ACTION_SEND);
-                            // TODO add message feature
-                            //https://firebase.google.com/docs/dynamic-links/use-cases/rewarded-referral
-                            intent.putExtra(Intent.EXTRA_TEXT, shortLink.toString());
-                            intent.setType("text/plain");
-                            startActivity(intent);
+//                        if (createIntent(shortLink))
+//                        {
+//                            Log.e("Intent Success", "Intent created successfully");
+//                        }
+//                        else
+//                        {
+//                            Log.e("Intent Fail", "Intent NOT created");
+//
+//                        }
 
-                        } else {
-                            // Error
-                            Log.e("InviteFriendsNew", " Error: " + task.getException());
-                        }
+                    } else {
+                        // Error
+                        Log.e("InviteFriendsNew", " Error: " + task.getException());
                     }
                 });
+    }*/
+
+    private void sendInvite(){
+        String referrerName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String subject = String.format("%s invites you to Friend Finder, join our community today!", referrerName);
+        String invitationLink = mInvitationUrl.toString();
+        String msg = "Join Friend Finder today! Use my referrer link: "
+                + invitationLink;
+        String msgHtml = String.format("<p>Join Friend Finder and let' enjoy together! Use my "
+                + "<a href=\"%s\">referrer link</a>!</p>", invitationLink);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
+        intent.putExtra(Intent.EXTRA_HTML_TEXT, msgHtml);
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            startActivity(intent);
+        /*intent.setAction(Intent.ACTION_SEND);
+        // TODO add message feature
+        //https://firebase.google.com/docs/dynamic-links/use-cases/rewarded-referral
+        intent.putExtra(Intent.EXTRA_TEXT, shortLink.toString());
+        intent.setType("text/plain");
+        startActivity(intent);*/
+    //  inviteFriendsNew.dynamicLinksHandler(intent);
+        }
+
+
     }
+
+
+
 }

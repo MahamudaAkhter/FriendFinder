@@ -29,18 +29,6 @@
 
         </androidx.appcompat.widget.SearchView>
 
-        <Button
-            android:id="@id/btnInvite"
-            style="@style/Widget.AppCompat.SearchView.ActionBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:iconifiedByDefault="false"
-            android:clipToPadding="false"
-            android:text="Invite your Friends"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/friend_list_search_view"
-            tools:layout_editor_absoluteX="17dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDynamicLinkResult"
@@ -48,6 +36,21 @@
             android:layout_height="match_parent" />
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@id/btnInvite"
+        style="@style/Widget.AppCompat.SearchView.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_margin="16dp"
+        android:text="Invite your Friends"
+        app:cornerRadius="32dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_view_container" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_list_recycler_view"
